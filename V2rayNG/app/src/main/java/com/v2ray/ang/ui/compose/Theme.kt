@@ -65,10 +65,10 @@ private val LightColor = lightColorScheme(
 )
 
 private val DarkColor = darkColorScheme(
-    primary = Color(0xFFC0C0C0), // Silver Gray
-    onPrimary = Color(0xFF303030), // Dark Gray
-    primaryContainer = Color(0xFF474747), // Gray
-    onPrimaryContainer = Color(0xFFE0E0E0), // Light Gray
+    primary = Color(0xFFE8743B), // Dark Orange
+    onPrimary = Color(0xFF1F0E04), // Dark Brown
+    primaryContainer = Color(0xFF5A2A10), // Brown
+    onPrimaryContainer = Color(0xFFFFE0CC), // Pale Orange
     secondary = Color(0xFFf97910), // Orange
     onSecondary = Color(0xFF4E2600), // Dark Brown
     secondaryContainer = Color(0xFF6F3800), // Brown
@@ -81,10 +81,10 @@ private val DarkColor = darkColorScheme(
     errorContainer = Color(0xFF93000A), // Dark Red
     onError = Color(0xFF690005), // Deep Red
     onErrorContainer = Color(0xFFFFDAD6), // Light Red
-    background = Color(0xFF1C1B1F), // Near Black
-    onBackground = Color(0xFFE6E1E5), // Light Gray
-    surface = Color(0xFF1C1B1F), // Near Black
-    onSurface = Color(0xFFE6E1E5), // Light Gray
+    background = Color(0xFF1F1D1B), // Warm Near Black
+    onBackground = Color(0xFFEDE6E0), // Warm Light Gray
+    surface = Color(0xFF1F1D1B), // Warm Near Black
+    onSurface = Color(0xFFEDE6E0), // Warm Light Gray
     surfaceVariant = Color(0xFF49454F), // Dark Gray
     onSurfaceVariant = Color(0xFFCAC4D0), // Light Gray
     outline = Color(0xFF938F99), // Grayish Purple
@@ -93,7 +93,7 @@ private val DarkColor = darkColorScheme(
     inverseOnSurface = Color(0xFF1C1B1F), // Near Black
     inversePrimary = Color(0xFF000000), // Black
     scrim = Color(0xFF000000), // Black
-    surfaceTint = Color(0xFFC0C0C0), // Silver Gray
+    surfaceTint = Color(0xFFE8743B), // Dark Orange
     surfaceContainerLowest = Color(0xFF0F0F12), // Near Black
     surfaceContainerLow = Color(0xFF1A191D), // Dark Gray
     surfaceContainer = Color(0xFF1E1D21), // Dark Gray
@@ -151,12 +151,7 @@ object ThemeManager {
 
 @Composable
 fun resolveDarkTheme(): Boolean {
-    val mode by ThemeManager.themeMode.collectAsState()
-    return when (mode) {
-        "1" -> false
-        "2" -> true
-        else -> isSystemInDarkTheme()
-    }
+    return true
 }
 
 val LocalDarkTheme = compositionLocalOf { false }
@@ -169,7 +164,7 @@ fun AppTheme(
     val dynamicColor by ThemeManager.dynamicColorEnabled.collectAsState()
     val context = LocalContext.current
     val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+        false && dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
 
